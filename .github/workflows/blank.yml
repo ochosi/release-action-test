@@ -23,6 +23,7 @@ jobs:
           token: "${{ secrets.TOKEN }}"
         name: Create GitHub release
 
+      - uses: actions/checkout@v2
       - run: |
           sed -i -E "s/(Version:\\s+)[0-9]+/\110/" osbuild.spec
         name: Bump version
