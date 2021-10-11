@@ -30,7 +30,8 @@ jobs:
           sed -i -E "s/(Version:\\s+)[0-9]+/\110/" osbuild.spec
         name: Bump version
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: EndBug/add-and-commit@v7
         with:
-          commit_message: "Post release version bump"
+          message: "Post release version bump"
+          add: "*.spec"
         name: Commit new version
