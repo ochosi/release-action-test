@@ -24,11 +24,14 @@ jobs:
         name: Create GitHub release
 
       - uses: actions/checkout@v2
+        with:
+          token: "${{ secrets.TOKEN }}"
       - run: |
           sed -i -E "s/(Version:\\s+)[0-9]+/\110/" osbuild.spec
         name: Bump version
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
+          token: "${{ secrets.TOKEN }}"
           commit_message: "Post release version bump"
         name: Commit new version
