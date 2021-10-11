@@ -27,7 +27,8 @@ jobs:
         with:
           token: "${{ secrets.TOKEN }}"
       - run: |
-          sed -i -E "s/(Version:\\s+)[0-9]+/\110/" osbuild.spec
+          export VERSION=$(git describe --tags --abbrev=0)
+          sed -i -E "s/(Version:\\s+)[0-9]+/\1$VERSION/" osbuild.spec
         name: Bump version
 
       - uses: EndBug/add-and-commit@v7
