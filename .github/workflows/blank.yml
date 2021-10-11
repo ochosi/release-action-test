@@ -21,3 +21,11 @@ jobs:
       - uses: ncipollo/release-action@v1.8.10
         with:
           token: "${{ secrets.TOKEN }}"
+
+      - run: |
+          export VERSION="10"
+          sed -i -E "s/(Version:\\s+)[0-9]+/\1$VERSION/" osbuild.spec
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Post release version bump"
