@@ -32,6 +32,5 @@ jobs:
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          token: "${{ secrets.TOKEN }}"
           commit_message: "Post release version bump"
         name: Commit new version
