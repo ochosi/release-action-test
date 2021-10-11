@@ -21,11 +21,13 @@ jobs:
       - uses: ncipollo/release-action@v1.8.10
         with:
           token: "${{ secrets.TOKEN }}"
+        name: Create GitHub release
 
       - run: |
-          export VERSION="10"
-          sed -i -E "s/(Version:\\s+)[0-9]+/\1$VERSION/" osbuild.spec
+          sed -i -E "s/(Version:\\s+)[0-9]+/\110/" osbuild.spec
+        name: Bump version
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Post release version bump"
+        name: Commit new version
