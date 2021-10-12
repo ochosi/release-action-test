@@ -23,7 +23,7 @@ jobs:
           token: "${{ secrets.TOKEN }}"
 
       - run: |
-          echo "# New Release\n  * First change\n  * Second change" > release.md
+          printf "# New Release\n  * First change\n  * Second change" > release.md
 
       - uses: ncipollo/release-action@v1.8.10
         with:
