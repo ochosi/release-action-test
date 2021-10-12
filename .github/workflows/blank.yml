@@ -12,31 +12,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout current repo
+        uses: actions/checkout@v2
         with:
           token: "${{ secrets.TOKEN }}"
-        name: Checkout current repo
 
-      - run: |
-          echo "github ref: $GITHUB_REF"
+      - name: Generate release information
+        run: |
+          echo "github ref: "
           pwd
+          git show -s --format=%s $GITHUB_REF^{commit}
           printf "# New Release\n  * First change\n  * Second change" > release.md
-        name: Generate release information
 
-      - uses: ncipollo/release-action@v1.8.10
+      - name: Create GitHub release
+        uses: ncipollo/release-action@v1.8.10
         with:
           token: "${{ secrets.TOKEN }}"
           bodyFile: "release.md"
-        name: Create GitHub release
 
-      - run: |
+      - name: Bump version
+        run: |
           export VERSION=$(git describe --tags --abbrev=0 | cut -c 2-)
           sed -i -E "s/(Version:\\s+)[0-9].+/\1$VERSION/" osbuild.spec
-        name: Bump version
 
-      - uses: EndBug/add-and-commit@v7
+      - name: Commit new version
+        uses: EndBug/add-and-commit@v7
         with:
           branch: main
           message: "Post release version bump"
           add: "*.spec"
-        name: Commit new version
