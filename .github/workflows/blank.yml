@@ -18,6 +18,8 @@ jobs:
         name: Checkout current repo
 
       - run: |
+          echo "github ref: $GITHUB_REF"
+          pwd
           printf "# New Release\n  * First change\n  * Second change" > release.md
         name: Generate release information
 
