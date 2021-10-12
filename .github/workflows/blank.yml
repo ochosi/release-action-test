@@ -1,5 +1,4 @@
-# This is a basic workflow to help you get started with Actions
-
+# Demo for doing releases automatically on GitHub
 name: "GitHub release demo"
 
 
@@ -8,22 +7,19 @@ on:
     tags:
       - "v*"
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  release:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
           token: "${{ secrets.TOKEN }}"
+        name: Checkout current repo
 
       - run: |
           printf "# New Release\n  * First change\n  * Second change" > release.md
+        name: Generate release information
 
       - uses: ncipollo/release-action@v1.8.10
         with:
@@ -32,8 +28,8 @@ jobs:
         name: Create GitHub release
 
       - run: |
-          export VERSION=$(git describe --tags --abbrev=0 | cut -c 1-)
-          sed -i -E "s/(Version:\\s+)[0-9]+/\1$VERSION/" osbuild.spec
+          export VERSION=$(git describe --tags --abbrev=0 | cut -c 2-)
+          sed -i -E "s/(Version:\\s+)[0-9].+/\1$VERSION/" osbuild.spec
         name: Bump version
 
       - uses: EndBug/add-and-commit@v7
