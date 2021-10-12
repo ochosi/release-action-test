@@ -18,14 +18,19 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: ncipollo/release-action@v1.8.10
-        with:
-          token: "${{ secrets.TOKEN }}"
-        name: Create GitHub release
-
       - uses: actions/checkout@v2
         with:
           token: "${{ secrets.TOKEN }}"
+
+      - run: |
+          echo "# New Release\n  * First change\n  * Second change" > release.md
+
+      - uses: ncipollo/release-action@v1.8.10
+        with:
+          token: "${{ secrets.TOKEN }}"
+          bodyFile: "release.md"
+        name: Create GitHub release
+
       - run: |
           export VERSION=$(git describe --tags --abbrev=0)
           sed -i -E "s/(Version:\\s+)[0-9]+/\1$VERSION/" osbuild.spec
