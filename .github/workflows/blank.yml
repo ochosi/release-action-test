@@ -19,10 +19,7 @@ jobs:
 
       - name: Generate release information
         run: |
-          echo "github ref: "
-          pwd
-          git show -s --format=%s $GITHUB_REF^{commit}
-          printf "# New Release\n  * First change\n  * Second change" > release.md
+          git tag --list  --format="%(subject)%0a%(body)" $GITHUB_REF > release.md
 
       - name: Create GitHub release
         uses: ncipollo/release-action@v1.8.10
