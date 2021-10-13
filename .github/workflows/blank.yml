@@ -41,11 +41,14 @@ jobs:
 
       - name: Bump version
         run: |
-          sed -i -E "s/(Version:\\s+)[0-9].+/\1${{  env.release_version }}/" osbuild.spec
+          sed -i -E "s/(Version:\\s+)[0-9].+/\1${{  env.release_version }}/" osbuild*.spec
+          if [ -f "setup.py" ]; then
+            sed -i -E "s/(Version:\\s+)[0-9].+/\1${{  env.release_version }}/" setup.py
+          fi
 
       - name: Commit new version
         uses: EndBug/add-and-commit@v7
         with:
           branch: main
           message: "Post release version bump"
-          add: "*.spec"
+          add: "-u *"
