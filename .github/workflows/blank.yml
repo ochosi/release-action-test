@@ -30,19 +30,18 @@ jobs:
           git tag --list --format="%(subject)%0a%(body)" $TAG > release.md
           echo "Contents of 'release.md'"
           cat release.md
-          echo "release_title=${TAG//v}" >> $GITHUB_ENV
+          echo "release_version=${TAG//v}" >> $GITHUB_ENV
 
       - name: Create GitHub release
         uses: ncipollo/release-action@v1.8.10
         with:
-          name: "${{  env.release_title }}"
+          name: "${{  env.release_version }}"
           token: "${{ secrets.TOKEN }}"
           bodyFile: "release.md"
 
       - name: Bump version
         run: |
-          export VERSION=$(git describe --tags --abbrev=0 | cut -c 2-)
-          sed -i -E "s/(Version:\\s+)[0-9].+/\1$VERSION/" osbuild.spec
+          sed -i -E "s/(Version:\\s+)[0-9].+/\1${{  env.release_version }}/" osbuild.spec
 
       - name: Commit new version
         uses: EndBug/add-and-commit@v7
