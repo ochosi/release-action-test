@@ -43,7 +43,7 @@ jobs:
         run: |
           sed -i -E "s/(Version:\\s+)[0-9].+/\1${{  env.release_version }}/" osbuild*.spec
           if [ -f "setup.py" ]; then
-            sed -i -E "s/(Version:\\s+)[0-9].+/\1${{  env.release_version }}/" setup.py
+            sed -i -E "s/(version=\")[0-9]+/\1${{  env.release_version }}/" setup.py
           fi
 
       - name: Commit new version
