@@ -20,8 +20,9 @@ jobs:
       - name: Generate release information
         run: |
           echo $GITHUB_REF
-          git describe $GITHUB_REF
-          git tag --list  --format="%(subject)%0a%(body)" $(git describe $GITHUB_REF) > release.md
+          git fetch --tags
+          git describe --tags $GITHUB_REF
+          git tag --list  --format="%(subject)%0a%(body)" $(git describe --tags $GITHUB_REF) > release.md
           cat release.md
 
       - name: Create GitHub release
