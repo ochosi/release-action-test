@@ -29,12 +29,13 @@ jobs:
           git tag --list --format="%(subject)%0a%(body)" $(git describe "${GITHUB_REF}") > release.md
           echo "Contents of 'release.md'"
           cat release.md
-          export $TITLE=$(echo ${GITHUB_REPOSITORY} $(git describe "${GITHUB_REF})
+          export TITLE=$(echo ${GITHUB_REPOSITORY} $(git describe "${GITHUB_REF})
+          echo "::set-env name=TITLE::$TITLE"
 
       - name: Create GitHub release
         uses: ncipollo/release-action@v1.8.10
         with:
-          name: ${{ TITLE }}
+          name: $TITLE
           token: "${{ secrets.TOKEN }}"
           bodyFile: "release.md"
 
