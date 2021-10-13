@@ -26,10 +26,11 @@ jobs:
       - name: Generate release information
         run: |
           echo "GITHUB_REF is ${GITHUB_REF}"
-          git tag --list --format="%(subject)%0a%(body)" $(git describe "${GITHUB_REF}") > release.md
+          export TAG=$(git describe "${GITHUB_REF}")
+          git tag --list --format="%(subject)%0a%(body)" $TAG > release.md
           echo "Contents of 'release.md'"
           cat release.md
-          echo "release_title='${GITHUB_REPOSITORY} $(git describe ${GITHUB_REF})'" >> $GITHUB_ENV
+          echo "release_title=${TAG//v}" >> $GITHUB_ENV
 
       - name: Create GitHub release
         uses: ncipollo/release-action@v1.8.10
