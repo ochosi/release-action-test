@@ -19,8 +19,8 @@ jobs:
 
       - name: Generate release information
         run: |
-          git tag --list  --format="%(subject)%0a%(body)" $(git describe --tags --abbrev=0) > release.md
-          cat release.md
+          export $GIT_REF=$(echo $GITHUB_REF | cut -c 10-)
+          git tag --list  --format="%(subject)%0a%(body)" $GIT_REF > release.md
 
       - name: Create GitHub release
         uses: ncipollo/release-action@v1.8.10
