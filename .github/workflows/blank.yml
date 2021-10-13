@@ -20,6 +20,7 @@ jobs:
       - name: Generate release information
         run: |
           git tag --list  --format="%(subject)%0a%(body)" $GITHUB_REF > release.md
+          cat release.md
 
       - name: Create GitHub release
         uses: ncipollo/release-action@v1.8.10
