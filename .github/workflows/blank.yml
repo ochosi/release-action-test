@@ -12,43 +12,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout current repo
-        uses: actions/checkout@v2
+      - name: Upstream release
+        uses: ochosi/composite-actions@main
         with:
+          repository_name: osbuild
           token: "${{ secrets.TOKEN }}"
-          fetch-depth: 0
-
-      - name: Fetch all tags
-        run: |
-          git fetch --tags --prune --force
-          git tag --list
-
-      - name: Generate release information
-        run: |
-          echo "GITHUB_REF is ${GITHUB_REF}"
-          export TAG=$(git describe "${GITHUB_REF}")
-          git tag --list --format="%(subject)%0a%(body)" $TAG > release.md
-          echo "Contents of 'release.md'"
-          cat release.md
-          echo "release_version=${TAG//v}" >> $GITHUB_ENV
-
-      - name: Create GitHub release
-        uses: ncipollo/release-action@v1.8.10
-        with:
-          name: "${{  env.release_version }}"
-          token: "${{ secrets.TOKEN }}"
-          bodyFile: "release.md"
-
-      - name: Bump version
-        run: |
-          sed -i -E "s/(Version:\\s+)[0-9].+/\1${{  env.release_version }}/" osbuild*.spec
-          if [ -f "setup.py" ]; then
-            sed -i -E "s/(version=\")[0-9]+/\1${{  env.release_version }}/" setup.py
-          fi
-
-      - name: Commit new version
-        uses: EndBug/add-and-commit@v7
-        with:
-          branch: main
-          message: "Post release version bump"
-          add: "-u *"
