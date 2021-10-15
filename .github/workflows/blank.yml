@@ -1,7 +1,6 @@
 # Demo for doing releases automatically on GitHub
 name: "GitHub release demo"
 
-
 on:
   push:
     tags:
@@ -15,5 +14,4 @@ jobs:
       - name: Upstream release
         uses: ochosi/composite-actions@main
         with:
-          repository_name: osbuild
           token: "${{ secrets.TOKEN }}"
