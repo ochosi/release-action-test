@@ -1,2 +1,5 @@
 # release-actions
-just a dummy repo to test release automation with GH Actions
+test release automation with GH Actions
+
+# slack notifications
+test sending notifications to slack as part of GH Actions
