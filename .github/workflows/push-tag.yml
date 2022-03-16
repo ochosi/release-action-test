@@ -1,0 +1,17 @@
+name: "Create and push release tag"
+
+on:
+  workflow_dispatch:
+  schedule:
+    "0 10 * * tue/2"
+    #"0 10 * * tue/2+1"
+
+jobs:
+  tagging:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Upstream tag
+        uses: ochosi/composite-actions@tagging
+        with:
+          token: "${{ secrets.TOKEN }}"
