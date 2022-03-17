@@ -15,3 +15,5 @@ jobs:
         uses: ochosi/composite-actions@main
         with:
           token: "${{ secrets.TOKEN }}"
+          username: "imagebuilder-bot"
+          email: "imagebuilder-bots+imagebuilder-bot@redhat.com"
