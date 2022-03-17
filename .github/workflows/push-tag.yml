@@ -15,6 +15,6 @@ jobs:
         uses: ochosi/composite-actions@main
         with:
           token: "${{ secrets.TOKEN }}"
-          component: "osbuild"
-          username: "ochosi"
+          component: "osbuild-composer"
+          username: "imagebuilder-bot"
           email: "imagebuilder-bots+imagebuilder-bot@redhat.com"
