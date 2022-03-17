@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
   schedule:
     "0 10 * * tue/2"
-    #"0 10 * * tue/2+1"
 
 jobs:
   tagging:
@@ -12,6 +11,6 @@ jobs:
 
     steps:
       - name: Upstream tag
-        uses: ochosi/composite-actions@tagging
+        uses: ochosi/composite-actions@v2
         with:
           token: "${{ secrets.TOKEN }}"
