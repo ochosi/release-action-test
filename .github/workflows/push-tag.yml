@@ -12,6 +12,6 @@ jobs:
 
     steps:
       - name: Upstream tag
-        uses: ochosi/composite-actions@v2
+        uses: ochosi/composite-actions@main
         with:
           token: "${{ secrets.TOKEN }}"
