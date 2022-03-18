@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Upstream tag
-        uses: ochosi/composite-actions@main
+        uses: ochosi/composite-actions@tagging
         with:
           token: "${{ secrets.TOKEN }}"
           component: "osbuild-composer"
