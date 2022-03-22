@@ -15,6 +15,10 @@ jobs:
         run: if [ `expr \`date +\%s\` / 86400 \% 2` -eq 0 ]; then echo "WEEK='odd'" >> $GITHUB_ENV; else echo "WEEK='even'" >> $GITHUB_ENV; fi
         shell: bash
 
+      - name: Week info
+        run: echo ${{ env.WEEK }}
+        shell: bash
+
       - name: Upstream tag
         uses: ochosi/composite-actions@tagging
         if: ${{ env.WEEK == 'odd' }}
