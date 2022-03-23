@@ -21,7 +21,7 @@ jobs:
 
       - name: Upstream tag
         uses: ochosi/composite-actions@tagging
-        if: ${{ env.WEEK == 'even' || ${{ github.event_name != 'schedule' }} }}
+        if: ${{ env.WEEK == 'even' || github.event_name != 'schedule' }}
         with:
           token: "${{ secrets.TOKEN }}"
           component: "osbuild-composer"
