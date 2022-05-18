@@ -1,0 +1,25 @@
+# Demo for fedora-bot's composite action
+name: "fedora-bot demo"
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  check:
+    name: Check for new releases
+    runs-on: ubuntu-latest
+
+    container:
+      image: ghcr.io/osbuild/fedora-bot:latest
+    steps:
+      - name: Upstream release
+        uses: ochosi/fedora-bot@composite-action
+        with:
+          fedora_username: "imagebuilder-bot"
+          fedora_password: "{{ secrets.FEDORA_PASSWORD }}"
+          fedora_apikey: "{{ secrets.FEDORA_APIKEY }}"
+          num_tests: 2
+          slack_webhook_url: "${{ secrets.SLACK_WEBHOOK_URL }}"
