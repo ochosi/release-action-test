@@ -23,3 +23,4 @@ jobs:
           fedora_apikey: "{{ secrets.FEDORA_APIKEY }}"
           num_tests: 2
           slack_webhook_url: "${{ secrets.SLACK_WEBHOOK_URL }}"
+          TOKEN: "${{ secrets.TOKEN }}"
