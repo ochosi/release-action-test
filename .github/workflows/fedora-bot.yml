@@ -15,7 +15,6 @@ jobs:
     container:
       image: ghcr.io/osbuild/fedora-bot:latest
     steps:
-      - uses: actions/checkout@v2
       - name: Upstream release
         uses: ochosi/fedora-bot@composite-action
         with:
