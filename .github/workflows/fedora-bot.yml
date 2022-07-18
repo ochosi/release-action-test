@@ -15,8 +15,8 @@ jobs:
 
     container:
       image: ghcr.io/osbuild/fedora-bot:latest
- 
+
     steps:
       - name: Upstream release
-        if: github.ref == 'refs/heads/main'
+        if: ${{ github.ref == 'refs/heads/main' }}
         run: echo ${{github.ref}}
